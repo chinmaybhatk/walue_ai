@@ -1,0 +1,12 @@
+{
+  "name": "walue_ai",
+  "version": "0.0.1",
+  "description": "AI-Powered Business Intelligence Platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["frappe", "ai", "business intelligence"],
+  "author": "Walue AI",
+  "license": "MIT"
+}

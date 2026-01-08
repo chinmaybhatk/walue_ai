@@ -3,595 +3,822 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Walue AI - AI-Powered Business Intelligence</title>
+    <title>Walue.ai - AI-Powered Digital Transformation for Enterprises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'walue': {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        'accent':{
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .gradient-text {
+            background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+        .hero-gradient {
+            background: linear-gradient(135deg, #0c4a6e 0%, #1e3a5f 50%, #0f172a 100%);
         }
-
-        .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .card-hover {
+            transition: all 0.3s ease;
         }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
+        .stat-card {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
         }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
+        .glow {
+            box-shadow: 0 0 60px rgba(14, 165, 233, 0.3);
         }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
-
-        .nav-links a:hover {
-            opacity: 0.8;
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
         }
-
-        .cta-button {
-            background: white;
-            color: #667eea;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 2rem 80px;
-            text-align: center;
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s backwards;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            animation: fadeInUp 1s ease 0.4s backwards;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 1rem 2.5rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            border: 2px solid white;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #667eea;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #667eea;
-        }
-
-        .features {
-            padding: 80px 2rem;
-            background: #f8f9fa;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2c3e50;
-        }
-
-        .features-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #2c3e50;
-        }
-
-        .feature-card p {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        .services {
-            padding: 80px 2rem;
-            background: white;
-        }
-
-        .services-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            text-align: center;
-            padding: 2rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            transition: all 0.3s;
-        }
-
-        .service-card:hover {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea05 0%, #764ba205 100%);
-        }
-
-        .service-card h3 {
-            font-size: 1.4rem;
-            margin: 1rem 0;
-            color: #2c3e50;
-        }
-
-        .pricing {
-            padding: 80px 2rem;
-            background: #f8f9fa;
-        }
-
-        .pricing-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .pricing-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .pricing-card:hover {
-            transform: scale(1.05);
-        }
-
-        .pricing-card.featured {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .pricing-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .price {
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-
-        .price-period {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        .features-list {
-            list-style: none;
-            margin: 2rem 0;
-            text-align: left;
-        }
-
-        .features-list li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .features-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .pricing-card.featured .features-list li:before {
-            color: white;
-        }
-
-        .cta-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 2rem;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        footer {
-            background: #2c3e50;
-            color: white;
-            padding: 3rem 2rem 1rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            opacity: 0.8;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .features-grid,
-            .services-grid,
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
+        .tech-grid {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
+            background-size: 40px 40px;
         }
     </style>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="logo">Walue AI</a>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <a href="#contact" class="cta-button">Get Started</a>
+<body class="font-sans antialiased bg-slate-50">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-walue-500 to-accent-500 flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">W</span>
+                    </div>
+                    <span class="text-2xl font-bold text-slate-900">walue<span class="text-walue-500">.ai</span></span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#products" class="text-slate-600 hover:text-walue-600 font-medium transition">Products</a>
+                    <a href="#solutions" class="text-slate-600 hover:text-walue-600 font-medium transition">Solutions</a>
+                    <a href="#case-studies" class="text-slate-600 hover:text-walue-600 font-medium transition">Case Studies</a>
+                    <a href="#technology" class="text-slate-600 hover:text-walue-600 font-medium transition">Technology</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="#contact" class="hidden sm:block text-slate-700 font-medium hover:text-walue-600 transition">Contact</a>
+                    <a href="#demo" class="px-5 py-2.5 bg-gradient-to-r from-walue-500 to-accent-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-walue-500/25 transition-all">
+                        Book a Demo
+                    </a>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="hero-container">
-            <h1>Transform Your Business with AI</h1>
-            <p>Unlock the power of artificial intelligence to drive data-driven decisions and accelerate growth</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn-primary">Start Free Trial</a>
-                <a href="#features" class="btn-secondary">Learn More</a>
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen pt-32 pb-20 relative overflow-hidden">
+        <div class="absolute inset-0 tech-grid opacity-30"></div>
+        <div class="absolute top-40 right-20 w-96 h-96 bg-walue-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 left-10 w-72 h-72 bg-accent-500/20 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="max-w-4xl">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur rounded-full mb-8">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    <span class="text-walue-200 text-sm font-medium">Trusted by 50+ Enterprises Across India & Global Markets</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
+                    Transform Your Business with 
+                    <span class="gradient-text">AI-First</span> Digital Infrastructure
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl leading-relaxed">
+                    From manufacturing floors to marketing campaigns — we build AI-native products, platforms, and solutions that deliver measurable ROI. Agentic AI, Digital Twins, Smart Factories, and more.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mb-16">
+                    <a href="#demo" class="px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl hover:bg-slate-100 transition text-center text-lg shadow-xl shadow-black/20">
+                        Schedule Strategy Call →
+                    </a>
+                    <a href="#case-studies" class="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition text-center text-lg">
+                        See Case Studies
+                    </a>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="stat-card rounded-xl p-6 backdrop-blur">
+                        <div class="text-4xl font-bold text-white mb-1">88%</div>
+                        <div class="text-walue-200 text-sm">OEE Improvement</div>
+                    </div>
+                    <div class="stat-card rounded-xl p-6 backdrop-blur">
+                        <div class="text-4xl font-bold text-white mb-1">5x</div>
+                        <div class="text-walue-200 text-sm">Order Volume Growth</div>
+                    </div>
+                    <div class="stat-card rounded-xl p-6 backdrop-blur">
+                        <div class="text-4xl font-bold text-white mb-1">60%</div>
+                        <div class="text-walue-200 text-sm">Queries Handled by AI</div>
+                    </div>
+                    <div class="stat-card rounded-xl p-6 backdrop-blur">
+                        <div class="text-4xl font-bold text-white mb-1">350M+</div>
+                        <div class="text-walue-200 text-sm">ONDC User Reach</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
-        <h2 class="section-title">Powerful AI Features</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <h3>Machine Learning</h3>
-                <p>Advanced ML algorithms that learn from your data and provide predictive insights to stay ahead of the competition.</p>
+    <!-- Problem Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-red-50 text-red-600 rounded-full text-sm font-semibold mb-4">THE CHALLENGE</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Still Running Your Business on <span class="text-red-500">Disconnected Systems?</span></h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">Most enterprises struggle with siloed data, manual processes, and reactive decision-making. The cost? Lost efficiency, missed opportunities, and competitors pulling ahead.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Real-time Analytics</h3>
-                <p>Get instant insights from your data with real-time dashboards and automated reporting capabilities.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>Enterprise Security</h3>
-                <p>Bank-level encryption and compliance with industry standards to keep your data safe and secure.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🚀</div>
-                <h3>Easy Integration</h3>
-                <p>Seamlessly integrate with your existing tools and workflows through our comprehensive API.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💡</div>
-                <h3>Smart Recommendations</h3>
-                <p>AI-powered suggestions that help you make better business decisions based on historical data.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌐</div>
-                <h3>Cloud-Based</h3>
-                <p>Access your insights anywhere, anytime with our scalable cloud infrastructure.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="services">
-        <h2 class="section-title">Our Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="feature-icon">📈</div>
-                <h3>Predictive Analytics</h3>
-                <p>Forecast trends and make proactive business decisions</p>
-            </div>
-            <div class="service-card">
-                <div class="feature-icon">🎯</div>
-                <h3>Customer Insights</h3>
-                <p>Understand your customers better with behavioral analysis</p>
-            </div>
-            <div class="service-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Process Automation</h3>
-                <p>Automate repetitive tasks and boost productivity</p>
-            </div>
-            <div class="service-card">
-                <div class="feature-icon">🔍</div>
-                <h3>Anomaly Detection</h3>
-                <p>Identify unusual patterns and potential issues early</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div class="w-14 h-14 rounded-xl bg-red-100 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-3">Manual Workflows Everywhere</h3>
+                    <p class="text-slate-600">Your teams waste 40%+ time on repetitive tasks that AI could handle. Campaign setups, SOP lookups, inventory reconciliation — all manual.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div class="w-14 h-14 rounded-xl bg-red-100 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-3">Data Without Insights</h3>
+                    <p class="text-slate-600">You have data everywhere but no unified view. Predicting demand, detecting anomalies, or forecasting ROI feels like guesswork.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div class="w-14 h-14 rounded-xl bg-red-100 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-3">Competitors Are Outpacing You</h3>
+                    <p class="text-slate-600">While you evaluate, AI-first companies are already automating customer support, optimizing operations, and scaling faster.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="pricing" class="pricing">
-        <h2 class="section-title">Simple, Transparent Pricing</h2>
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3>Starter</h3>
-                <div class="price">$49<span class="price-period">/mo</span></div>
-                <ul class="features-list">
-                    <li>Up to 10,000 data points</li>
-                    <li>Basic analytics dashboard</li>
-                    <li>Email support</li>
-                    <li>API access</li>
-                    <li>1 user account</li>
-                </ul>
-                <a href="#contact" class="btn-primary">Get Started</a>
-            </div>
-            <div class="pricing-card featured">
-                <h3>Professional</h3>
-                <div class="price">$149<span class="price-period">/mo</span></div>
-                <ul class="features-list">
-                    <li>Up to 100,000 data points</li>
-                    <li>Advanced analytics & ML</li>
-                    <li>Priority support</li>
-                    <li>API access + webhooks</li>
-                    <li>5 user accounts</li>
-                    <li>Custom integrations</li>
-                </ul>
-                <a href="#contact" class="btn-secondary" style="background: white; color: #667eea;">Get Started</a>
-            </div>
-            <div class="pricing-card">
-                <h3>Enterprise</h3>
-                <div class="price">Custom</div>
-                <ul class="features-list">
-                    <li>Unlimited data points</li>
-                    <li>Full AI capabilities</li>
-                    <li>24/7 dedicated support</li>
-                    <li>Custom development</li>
-                    <li>Unlimited users</li>
-                    <li>On-premise deployment</li>
-                    <li>SLA guarantee</li>
-                </ul>
-                <a href="#contact" class="btn-primary">Contact Sales</a>
+    <!-- Solution Section -->
+    <section class="py-24 bg-gradient-to-b from-slate-50 to-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-walue-50 text-walue-600 rounded-full text-sm font-semibold mb-4">THE SOLUTION</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">AI-Native Products Built for <span class="gradient-text">Real Business Impact</span></h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">Not just another AI consultancy. We deliver production-ready platforms with Agentic AI, Digital Twins, and end-to-end automation that transforms how you operate.</p>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="cta-section">
-        <h2>Ready to Transform Your Business?</h2>
-        <p>Join thousands of companies already using Walue AI</p>
-        <div class="hero-buttons">
-            <a href="/contact" class="btn-primary">Start Free Trial</a>
-            <a href="/demo" class="btn-secondary">Schedule Demo</a>
+    <!-- Products Section -->
+    <section id="products" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-accent-500/10 text-accent-600 rounded-full text-sm font-semibold mb-4">PRODUCT PORTFOLIO</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Enterprise-Grade AI Products</h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">Production-ready platforms that integrate seamlessly with your existing stack</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- MES Card -->
+                <div class="card-hover bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                    <div class="p-8">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-6 shadow-lg shadow-blue-500/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <div class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold mb-4">MANUFACTURING</div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">MES Platform</h3>
+                        <p class="text-slate-600 mb-6">Industry 4.0/5.0/6.0 Ready Manufacturing Execution System with AI-powered BOM optimization and predictive maintenance.</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>OPC-UA/ModBus Machine Integration</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Digital Twin & AI Assistant</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Sustainability Module (AI + Blockchain)</span>
+                            </li>
+                        </ul>
+                        <div class="pt-4 border-t border-slate-100">
+                            <span class="text-sm text-walue-600 font-semibold">Result: OEE 72% → 88% ↑</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-commerce Card -->
+                <div class="card-hover bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                    <div class="p-8">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mb-6 shadow-lg shadow-green-500/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <div class="inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs font-semibold mb-4">COMMERCE</div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">E-commerce Platform</h3>
+                        <p class="text-slate-600 mb-6">Unified Commerce with ONDC Integration reaching 350M+ users, WhatsApp Commerce, and AI-powered customer agents.</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>ONDC Network Integration</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>WhatsApp Commerce & AI Agents</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>B2B Portal & Inventory Sync</span>
+                            </li>
+                        </ul>
+                        <div class="pt-4 border-t border-slate-100">
+                            <span class="text-sm text-walue-600 font-semibold">Result: 5x Order Volume ↑</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing Suite Card -->
+                <div class="card-hover bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                    <div class="p-8">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mb-6 shadow-lg shadow-purple-500/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                        </div>
+                        <div class="inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs font-semibold mb-4">MARKETING</div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">Marketing Suite</h3>
+                        <p class="text-slate-600 mb-6">AI-Powered Marketing Automation with omnichannel campaigns, unified analytics, and intelligent ROAS optimization.</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>CRM + Campaign Manager</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>AI Theme Campaigns & Suggestions</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>ROAS/CAC/LTV Reports</span>
+                            </li>
+                        </ul>
+                        <div class="pt-4 border-t border-slate-100">
+                            <span class="text-sm text-walue-600 font-semibold">Result: 28% ROAS Improvement ↑</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LMS Card -->
+                <div class="card-hover bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                    <div class="p-8">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center mb-6 shadow-lg shadow-orange-500/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        <div class="inline-block px-3 py-1 bg-orange-50 text-orange-600 rounded-full text-xs font-semibold mb-4">LEARNING</div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">LMS Platform</h3>
+                        <p class="text-slate-600 mb-6">AI-Powered Adaptive Learning with chat-with-course, AR/VR experiences, and intelligent progress analytics.</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Adaptive Learning Paths</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Chat with Course Content</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>AR/VR Training Experiences</span>
+                            </li>
+                        </ul>
+                        <div class="pt-4 border-t border-slate-100">
+                            <span class="text-sm text-walue-600 font-semibold">Result: 40% Training Time Reduction ↓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ticketing Card -->
+                <div class="card-hover bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                    <div class="p-8">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center mb-6 shadow-lg shadow-cyan-500/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        </div>
+                        <div class="inline-block px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-xs font-semibold mb-4">SUPPORT</div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">AI Ticketing & Support</h3>
+                        <p class="text-slate-600 mb-6">AI-Native Customer Support with multi-channel ticketing, voice agents, and local language support across any language.</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Multi-language AI Support Agent</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>WhatsApp & Voice Support Agents</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Knowledge Base with RAG</span>
+                            </li>
+                        </ul>
+                        <div class="pt-4 border-t border-slate-100">
+                            <span class="text-sm text-walue-600 font-semibold">Result: 60% Queries via AI ↑</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ERP Card -->
+                <div class="card-hover bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                    <div class="p-8">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center mb-6 shadow-lg shadow-slate-500/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
+                        <div class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-semibold mb-4">OPERATIONS</div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">ERP Platform</h3>
+                        <p class="text-slate-600 mb-6">Customizable and Modular ERP for Cloud or On-Premise with accounting, HR, inventory, and project management.</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Modular & API-First Design</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>HR, Payroll, Accounting</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Cloud & On-Premise Options</span>
+                            </li>
+                        </ul>
+                        <div class="pt-4 border-t border-slate-100">
+                            <span class="text-sm text-walue-600 font-semibold">Result: 99.5% Inventory Accuracy ↑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Walue AI</h3>
-                <p>Empowering businesses with AI-driven insights and intelligence.</p>
+    <!-- Technology Section -->
+    <section id="technology" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 tech-grid opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-walue-500/20 text-walue-300 rounded-full text-sm font-semibold mb-4">TECHNOLOGY STACK</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Cutting-Edge Tech. <span class="text-walue-400">Production Ready.</span></h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">We don't just talk AI. We build with the latest in Agentic AI, fine-tuned SLMs, Enterprise Knowledge Graphs, and more.</p>
             </div>
-            <div class="footer-section">
-                <h3>Product</h3>
-                <ul>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="/docs">Documentation</a></li>
-                    <li><a href="/api">API</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="/about">About Us</a></li>
-                    <li><a href="/careers">Careers</a></li>
-                    <li><a href="/blog">Blog</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="/privacy">Privacy Policy</a></li>
-                    <li><a href="/terms">Terms of Service</a></li>
-                    <li><a href="/security">Security</a></li>
-                </ul>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
+                    <h4 class="text-lg font-semibold text-walue-300 mb-4">GenAI Stack</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 bg-walue-500/20 text-walue-200 rounded-lg text-sm">Agentic AI</span>
+                        <span class="px-3 py-1.5 bg-walue-500/20 text-walue-200 rounded-lg text-sm">A2A</span>
+                        <span class="px-3 py-1.5 bg-walue-500/20 text-walue-200 rounded-lg text-sm">ADK</span>
+                        <span class="px-3 py-1.5 bg-walue-500/20 text-walue-200 rounded-lg text-sm">SLM Fine-tuning</span>
+                        <span class="px-3 py-1.5 bg-walue-500/20 text-walue-200 rounded-lg text-sm">MCPs</span>
+                        <span class="px-3 py-1.5 bg-walue-500/20 text-walue-200 rounded-lg text-sm">RAG</span>
+                        <span class="px-3 py-1.5 bg-walue-500/20 text-walue-200 rounded-lg text-sm">EKG</span>
+                        <span class="px-3 py-1.5 bg-walue-500/20 text-walue-200 rounded-lg text-sm">STT/TTS</span>
+                    </div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
+                    <h4 class="text-lg font-semibold text-green-300 mb-4">Data & ML</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 bg-green-500/20 text-green-200 rounded-lg text-sm">Digital Twins</span>
+                        <span class="px-3 py-1.5 bg-green-500/20 text-green-200 rounded-lg text-sm">Predictive Analytics</span>
+                        <span class="px-3 py-1.5 bg-green-500/20 text-green-200 rounded-lg text-sm">Anomaly Detection</span>
+                        <span class="px-3 py-1.5 bg-green-500/20 text-green-200 rounded-lg text-sm">AR/VR</span>
+                    </div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
+                    <h4 class="text-lg font-semibold text-purple-300 mb-4">Smart Factories</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 bg-purple-500/20 text-purple-200 rounded-lg text-sm">IoT Integration</span>
+                        <span class="px-3 py-1.5 bg-purple-500/20 text-purple-200 rounded-lg text-sm">OPC-UA</span>
+                        <span class="px-3 py-1.5 bg-purple-500/20 text-purple-200 rounded-lg text-sm">ModBus</span>
+                        <span class="px-3 py-1.5 bg-purple-500/20 text-purple-200 rounded-lg text-sm">Edge Computing</span>
+                        <span class="px-3 py-1.5 bg-purple-500/20 text-purple-200 rounded-lg text-sm">SCADA</span>
+                        <span class="px-3 py-1.5 bg-purple-500/20 text-purple-200 rounded-lg text-sm">PLC</span>
+                    </div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
+                    <h4 class="text-lg font-semibold text-orange-300 mb-4">Blockchain</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 bg-orange-500/20 text-orange-200 rounded-lg text-sm">Hyperledger Fabric</span>
+                        <span class="px-3 py-1.5 bg-orange-500/20 text-orange-200 rounded-lg text-sm">Smart Contracts</span>
+                        <span class="px-3 py-1.5 bg-orange-500/20 text-orange-200 rounded-lg text-sm">Tokenization</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Walue AI. All rights reserved.</p>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-green-50 text-green-600 rounded-full text-sm font-semibold mb-4">PROVEN RESULTS</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Real Results. <span class="gradient-text">Real Impact.</span></h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">See how enterprises across industries are transforming operations with Walue.ai</p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Case Study 1 -->
+                <div class="bg-gradient-to-r from-blue-50 to-slate-50 rounded-3xl p-8 md:p-12 border border-blue-100">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <div class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4">ELECTRONICS MANUFACTURING</div>
+                            <h3 class="text-3xl font-bold text-slate-900 mb-4">OEE Jumped from 72% to 88% in 6 Months</h3>
+                            <p class="text-lg text-slate-600 mb-6">A leading EMS company struggled with high technician dependency, no hands-free assistance on assembly lines, and disconnected quality systems across 12 SMT lines.</p>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">MES deployed across 50+ workstations</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">Voice AI assistant for SOPs & troubleshooting</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">Real-time quality monitoring</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="bg-white rounded-2xl p-6 border border-blue-200">
+                                <div class="text-5xl font-bold text-blue-600 mb-2">88%</div>
+                                <div class="text-slate-600">Final OEE</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-blue-200">
+                                <div class="text-5xl font-bold text-blue-600 mb-2">↑16%</div>
+                                <div class="text-slate-600">OEE Gain</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-blue-200">
+                                <div class="text-5xl font-bold text-blue-600 mb-2">35%</div>
+                                <div class="text-slate-600">Less Downtime</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-blue-200">
+                                <div class="text-5xl font-bold text-blue-600 mb-2">60%</div>
+                                <div class="text-slate-600">Faster Training</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study 2 -->
+                <div class="bg-gradient-to-r from-green-50 to-slate-50 rounded-3xl p-8 md:p-12 border border-green-100">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="order-2 md:order-1 grid grid-cols-2 gap-6">
+                            <div class="bg-white rounded-2xl p-6 border border-green-200">
+                                <div class="text-5xl font-bold text-green-600 mb-2">5x</div>
+                                <div class="text-slate-600">Order Volume</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-green-200">
+                                <div class="text-5xl font-bold text-green-600 mb-2">350M+</div>
+                                <div class="text-slate-600">ONDC Reach</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-green-200">
+                                <div class="text-5xl font-bold text-green-600 mb-2">40%</div>
+                                <div class="text-slate-600">Cost Reduction</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-green-200">
+                                <div class="text-5xl font-bold text-green-600 mb-2">24/7</div>
+                                <div class="text-slate-600">AI Support</div>
+                            </div>
+                        </div>
+                        <div class="order-1 md:order-2">
+                            <div class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-4">FOOD & BEVERAGE</div>
+                            <h3 class="text-3xl font-bold text-slate-900 mb-4">5x Order Volume Growth via ONDC Integration</h3>
+                            <p class="text-lg text-slate-600 mb-6">A regional F&B brand needed to scale beyond local market but lacked digital infrastructure for unified commerce, WhatsApp ordering, and customer support.</p>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">Unified e-commerce + ONDC network</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">WhatsApp Commerce with AI agents</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">B2B portal for distributors</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study 3 -->
+                <div class="bg-gradient-to-r from-purple-50 to-slate-50 rounded-3xl p-8 md:p-12 border border-purple-100">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <div class="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold mb-4">CONSUMER BRAND</div>
+                            <h3 class="text-3xl font-bold text-slate-900 mb-4">28% ROAS Improvement with AI-Powered Marketing</h3>
+                            <p class="text-lg text-slate-600 mb-6">A D2C brand struggled with scattered campaigns across 8+ channels, manual ROAS tracking, and no unified customer view across touchpoints.</p>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">Omnichannel campaign automation</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">AI theme suggestions & copy generation</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">Real-time ROAS/CAC/LTV dashboards</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="bg-white rounded-2xl p-6 border border-purple-200">
+                                <div class="text-5xl font-bold text-purple-600 mb-2">↑28%</div>
+                                <div class="text-slate-600">ROAS Gain</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-purple-200">
+                                <div class="text-5xl font-bold text-purple-600 mb-2">↓42%</div>
+                                <div class="text-slate-600">CAC Drop</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-purple-200">
+                                <div class="text-5xl font-bold text-purple-600 mb-2">3.2x</div>
+                                <div class="text-slate-600">Campaign Output</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-purple-200">
+                                <div class="text-5xl font-bold text-purple-600 mb-2">85%</div>
+                                <div class="text-slate-600">Time Saved</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study 4 -->
+                <div class="bg-gradient-to-r from-cyan-50 to-slate-50 rounded-3xl p-8 md:p-12 border border-cyan-100">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="order-2 md:order-1 grid grid-cols-2 gap-6">
+                            <div class="bg-white rounded-2xl p-6 border border-cyan-200">
+                                <div class="text-5xl font-bold text-cyan-600 mb-2">60%</div>
+                                <div class="text-slate-600">AI Resolution</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-cyan-200">
+                                <div class="text-5xl font-bold text-cyan-600 mb-2">↓70%</div>
+                                <div class="text-slate-600">Ticket Volume</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-cyan-200">
+                                <div class="text-5xl font-bold text-cyan-600 mb-2">12</div>
+                                <div class="text-slate-600">Languages</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 border border-cyan-200">
+                                <div class="text-5xl font-bold text-cyan-600 mb-2">4.8</div>
+                                <div class="text-slate-600">CSAT Score</div>
+                            </div>
+                        </div>
+                        <div class="order-1 md:order-2">
+                            <div class="inline-block px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-sm font-semibold mb-4">FINTECH</div>
+                            <h3 class="text-3xl font-bold text-slate-900 mb-4">60% of Support Queries Resolved by AI</h3>
+                            <p class="text-lg text-slate-600 mb-6">A fintech platform with 2M+ users faced overwhelming support tickets, no local language support, and inconsistent response quality across channels.</p>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">Multi-language AI support agents</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">WhatsApp & voice AI assistants</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-5 h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-slate-700">RAG-powered knowledge base</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Turnkey Projects Section -->
+    <section id="solutions" class="py-24 bg-gradient-to-b from-slate-50 to-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-walue-50 text-walue-600 rounded-full text-sm font-semibold mb-4">TURNKEY SOLUTIONS</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">End-to-End <span class="gradient-text">Digital Transformation</span> Projects</h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">From strategy to deployment, we handle everything. You focus on your business, we handle the tech.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 border border-slate-200">
+                    <div class="w-12 h-12 rounded-xl bg-walue-100 flex items-center justify-center mb-6">
+                        <span class="text-2xl font-bold text-walue-600">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Smart Factory Setup</h3>
+                    <p class="text-slate-600 mb-4">Complete Industry 4.0/5.0/6.0 transformation with IoT, Digital Twins, MES, and real-time dashboards.</p>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li>• Machine connectivity (OPC-UA/ModBus)</li>
+                        <li>• Production monitoring & analytics</li>
+                        <li>• Predictive maintenance</li>
+                        <li>• Quality management systems</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-slate-200">
+                    <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-6">
+                        <span class="text-2xl font-bold text-green-600">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Digital Commerce Platform</h3>
+                    <p class="text-slate-600 mb-4">Unified commerce with ONDC, WhatsApp, B2B portals, and AI-powered customer support.</p>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li>• Multi-channel commerce setup</li>
+                        <li>• ONDC network integration</li>
+                        <li>• Payment gateway & logistics</li>
+                        <li>• AI chatbots & voice agents</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-slate-200">
+                    <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-6">
+                        <span class="text-2xl font-bold text-purple-600">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">AI-First Operations</h3>
+                    <p class="text-slate-600 mb-4">Complete operational AI with marketing automation, support systems, and enterprise ERP.</p>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li>• Marketing Suite deployment</li>
+                        <li>• AI Support & ticketing systems</li>
+                        <li>• ERP/CRM/LMS platforms</li>
+                        <li>• Custom AI agents & workflows</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#demo" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-walue-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-lg transition">
+                    Discuss Your Project →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Consulting Section -->
+    <section class="py-24 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-walue-500/20 text-walue-300 rounded-full text-sm font-semibold mb-4">STRATEGIC CONSULTING</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Not Sure Where to Start? <span class="text-walue-400">We'll Show You.</span></h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">Free AI readiness assessment & roadmap for qualified enterprises.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white/5 rounded-2xl p-8 border border-white/10">
+                    <h3 class="text-2xl font-bold mb-4">AI Readiness Assessment</h3>
+                    <p class="text-slate-300 mb-6">We analyze your current tech stack, processes, and data to identify quick wins and long-term opportunities.</p>
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-walue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            <span>Infrastructure & data audit</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-walue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            <span>Process automation opportunities</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-walue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            <span>ROI projections for AI initiatives</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white/5 rounded-2xl p-8 border border-white/10">
+                    <h3 class="text-2xl font-bold mb-4">Custom AI Roadmap</h3>
+                    <p class="text-slate-300 mb-6">Get a phased implementation plan with timelines, budget estimates, and expected outcomes.</p>
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-walue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            <span>Priority-ranked initiatives</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-walue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            <span>Tech stack recommendations</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-walue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            <span>Change management strategy</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="#demo" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl hover:bg-slate-100 transition">
+                    Get Free Assessment →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="demo" class="py-24 bg-gradient-to-r from-walue-500 to-accent-500 text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Business?</h2>
+            <p class="text-xl text-walue-100 mb-10">Book a strategy call to discuss your specific needs. No sales pitch — just solutions.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="mailto:contact@walue.ai" class="px-8 py-4 bg-white text-walue-600 font-semibold rounded-xl hover:bg-slate-100 transition text-lg">
+                    contact@walue.ai
+                </a>
+                <a href="tel:+919876543210" class="px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white/10 transition text-lg">
+                    +91 98765 43210
+                </a>
+            </div>
+
+            <div class="inline-flex items-center gap-2 text-walue-100">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span>Trusted by 50+ Enterprises Across India & Global Markets</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-walue-500 to-accent-500 flex items-center justify-center">
+                            <span class="text-white font-bold">W</span>
+                        </div>
+                        <span class="text-xl font-bold text-white">walue<span class="text-walue-400">.ai</span></span>
+                    </div>
+                    <p class="text-sm">AI-Powered Digital Transformation for Enterprises</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Products</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-walue-400 transition">MES Platform</a></li>
+                        <li><a href="#" class="hover:text-walue-400 transition">E-commerce</a></li>
+                        <li><a href="#" class="hover:text-walue-400 transition">Marketing Suite</a></li>
+                        <li><a href="#" class="hover:text-walue-400 transition">LMS Platform</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Solutions</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-walue-400 transition">Smart Factories</a></li>
+                        <li><a href="#" class="hover:text-walue-400 transition">Digital Commerce</a></li>
+                        <li><a href="#" class="hover:text-walue-400 transition">AI Operations</a></li>
+                        <li><a href="#" class="hover:text-walue-400 transition">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-walue-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-walue-400 transition">Case Studies</a></li>
+                        <li><a href="#" class="hover:text-walue-400 transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-walue-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-slate-800 text-center text-sm">
+                <p>&copy; 2025 Walue.ai. All rights reserved. Built with AI-First Architecture.</p>
+            </div>
         </div>
     </footer>
 
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.2)';
-            } else {
-                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-            }
-        });
-    </script>
 </body>
 </html>
